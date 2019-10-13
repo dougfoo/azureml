@@ -1,6 +1,7 @@
 from azureml.core import Environment,Workspace, Experiment, Run
 from azureml.core.webservice import Webservice
 from azureml.core.model import Model, InferenceConfig
+from azureml.core.image import Image, ContainerImage
 
 # register
 ws = Workspace.get(name='DiamondMLWS',
@@ -8,16 +9,15 @@ ws = Workspace.get(name='DiamondMLWS',
                    resource_group='diamond-ml'
                   )
 
-# Register new model.
-model = Model.register(model_path="outputs/sklearn_diamond_simple_model.pkl",
-                           model_name="sklearn_diamond_simple_model",
-                           tags={"key": "0.1"},
-                           description="test",
-                           workspace=ws)
+# # Re-fetch model.
+# model = Model.register(model_path="outputs/sklearn_diamond_simple_model.pkl",
+#                            model_name="sklearn_diamond_simple_model",
+#                            tags={"key": "0.1"},
+#                            description="test",
+#                            workspace=ws)
+model = Model(ws, name='sklearn_diamond_simple_model')
                            
 print(model.name, model.id, model.version, sep='\t')
-
-from azureml.core.image import Image, ContainerImage
 
 image_config = ContainerImage.image_configuration(runtime= "python",
                                  execution_script="score.py",
