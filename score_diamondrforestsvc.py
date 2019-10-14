@@ -8,7 +8,7 @@ from azureml.core.model import Model
 def init():
     global model
     # retrieve the path to the model file using the model name
-    model_path = os.path.join(os.getenv('AZUREML_MODEL_DIR'), 'sklearn_diamond_simple_model.pkl')
+    model_path = os.path.join(os.getenv('AZUREML_MODEL_DIR'), 'sklearn_diamond_rforest_model.pkl')
 #    model_path = Model.get_model_path('sklearn_diamond_simple_model.pkl')
     model = joblib.load(model_path)
 
