@@ -35,7 +35,7 @@ ws = Workspace.get(name='DiamondMLWS',
                    subscription_id='7a2efedb-22fb-4344-bf58-c4b1a17f440a',
                    resource_group='diamond-ml')
 model = Model(ws, name)
-model.download(target_dir=os.getcwd(), exist_ok=True)  # write copy of pkl file
+#model.download(target_dir=os.getcwd(), exist_ok=True)  # write copy of pkl file
 
 # setup service
 from azureml.core.webservice import Webservice
@@ -44,6 +44,12 @@ from azureml.core.model import InferenceConfig
 inference_config = InferenceConfig(runtime= "python", 
                                    entry_script="score_"+svcname+".py",
                                    conda_file="myenv.yml")
+
+# if service exists delete first?
+svc = AciWebservice(ws, svcname)
+if (svc):
+    print('delete old',svc)
+    svc.delete()
 
 service = Model.deploy(workspace=ws, 
                        name=svcname,
