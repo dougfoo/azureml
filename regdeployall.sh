@@ -1,0 +1,6 @@
+python reg.py sklearn_diamond_regr_model
+python deploy.py sklearn_diamond_regr_model diamondregrsvc
+python reg.py sklearn_diamond_xgb_model
+python deploy.py sklearn_diamond_xgb_model diamondxgbsvc
+python reg.py sklearn_diamond_rforest_model
+python deploy.py sklearn_diamond_rforest_model diamondrforestsvc
